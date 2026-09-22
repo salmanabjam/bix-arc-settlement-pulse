@@ -143,7 +143,7 @@ h1 em{font-style:normal;color:var(--ember)}
   margin:0
 }
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-button,.secondary{
+button,button:focus-visible,.secondary:focus-visible{outline:2px solid var(--ember2);outline-offset:3px}.secondary{
   border-radius:9px;
   padding:14px 19px;
   font-size:13px;
@@ -158,7 +158,7 @@ button{
   cursor:pointer
 }
 button:hover,.secondary:hover{transform:translateY(-2px)}
-.secondary{
+button:focus-visible,.secondary:focus-visible{outline:2px solid var(--ember2);outline-offset:3px}.secondary{
   color:var(--light);
   text-decoration:none;
   border:1px solid #3b5969;
@@ -305,7 +305,7 @@ footer{
       <span class="mark">BiX <span>ARC</span></span>
       <small>SETTLEMENT PULSE</small>
     </a>
-    <div class="live"><i></i> LIVE MAINNET</div>
+    <div class="live"><i></i> ARC MAINNET / READ-ONLY</div>
   </header>
 
   <div class="hero">
@@ -317,7 +317,7 @@ footer{
         <button id="run">Run live Arc check</button>
         <a class="secondary" href="https://github.com/salmanabjam/bix-arc-settlement-pulse" target="_blank" rel="noopener">View source</a>
       </div>
-      <p class="meta">READ-ONLY · NO WALLET · NO TRADING · LIVE ARC DATA</p>
+      <p class="meta">READ-ONLY Â· NO WALLET Â· NO TRADING Â· LIVE ARC DATA</p>
     </div>
 
     <div class="visual" aria-label="Arc settlement pulse">
@@ -343,18 +343,18 @@ footer{
     <article class="panel">
       <h2>Live network check</h2>
       <p>The monitor reads the latest 20 Arc blocks and measures settlement cadence directly from Arc Mainnet.</p>
-      <div class="status" id="status"><strong>READY</strong> · Press “Run live Arc check”.</div>
+      <div class="status" id="status"><strong>READY</strong> Â· Press â€œRun live Arc checkâ€.</div>
     </article>
     <article class="panel">
       <h2>Why this exists</h2>
-      <p>Before building alerts or a paid API, BiX tests whether simple settlement-health signals can provide useful operational evidence for builders.</p>
+      <p>Before building alerts or a paid API, BiX tests whether simple settlement-health signals can provide useful operational evidence for builders.</p><div class="status"><strong>GATE</strong> &middot; Build only if the live signal proves useful.</div>
     </article>
   </section>
 </main>
 
 <footer>
-  <span>BiX Arc Settlement Pulse · Experimental infrastructure</span>
-  <span>Live data · Public source · Minimal surface</span>
+  <span>BiX Arc Settlement Pulse Â· Experimental infrastructure</span>
+  <span>Live data Â· Public source Â· Minimal surface</span>
 </footer>
 
 <script>
@@ -373,7 +373,7 @@ async function rpc(method,params){
 document.getElementById("run").onclick=async()=>{
   const s=document.getElementById("status");
   try{
-    s.innerHTML="<strong>READING</strong> · Fetching latest Arc Mainnet blocks...";
+    s.innerHTML="<strong>READING</strong> Â· Fetching latest Arc Mainnet blocks...";
     const tip=parseInt(await rpc("eth_blockNumber",[]),16);
     const blocks=[];
     for(let n=tip-19;n<=tip;n++){
@@ -390,11 +390,12 @@ document.getElementById("run").onclick=async()=>{
     document.getElementById("avg").textContent=(tx.reduce((a,b)=>a+b,0)/tx.length).toFixed(2);
     document.getElementById("empty").textContent=tx.filter(x=>x===0).length;
     document.querySelector(".pulse .big").innerHTML="<span>"+median+"</span>s";
-    s.innerHTML="<strong>LIVE</strong> · Arc Mainnet check completed successfully.";
+    s.innerHTML="<strong>LIVE</strong> Â· Arc Mainnet check completed successfully.";
   }catch(e){
-    s.innerHTML="<strong>UNAVAILABLE</strong> · "+e.message;
+    s.innerHTML="<strong>UNAVAILABLE</strong> Â· "+e.message;
   }
 };
 </script>
 </body>
 </html>
+
